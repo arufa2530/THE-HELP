@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using UnityEngine.SocialPlatforms;
 
+
+/*
 public class idou_Camera : MonoBehaviour
 {
     /*
@@ -12,7 +14,7 @@ public class idou_Camera : MonoBehaviour
          右ドラッグ:カメラの回転
          左ドラッグ:前後左右の移動
 
-         */
+         
     //カメラ移動
     [SerializeField, Range(0.1f, 10.0f)]
     private float _positionStep = 2.0f;
@@ -54,20 +56,68 @@ public class idou_Camera : MonoBehaviour
     {
         CamControlIsActive();
         //カメラ操作の有効無効
-
+        CameraOn();
     }
+
+    void CameraOn()
+    {
+        if(_cameraMoveActive)
+        {
+            ResetCameraRotation();
+            CameraRotationMouseControl();
+            CameraSlideMouseControl();
+            CameraPositionKeyControl();
+        }
+    }
+
+    //カメラ操作の有無
     public void CamControlIsActive()
     {
-        if(Input.GetkeyDown(KeyCode.o))
+        if(Input.GetKeyDown("q"))
+        {
+            Debug.Log("QChara");
+        }
+
+        if(Input.GetKeyDown(KeyCode.Q))
         {
             _cameraMoveActive = !_cameraMoveActive;
 
             if(_uiMessageActiv == false)
             {
-
+                StartCoroutine(DisplayUiMessage());
             }
+            Debug.Log("CamControl : " + _cameraMoveActive);
         }
         
     }
 
+    //回転の初期化
+    private void ResetCameraRotation()
+    {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            this.gameObject.transform.rotation = _initialCamRotation;
+            Debug.Log("Cam Rotate : " + _initialCamRotation.ToString());
+        }
+    }
+    
+    //カメラの回転（マウス）
+    private void CameraRotationMouseControl()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            _startMousePos = Input.mousePosition;
+            _presentCamRotation.x = _camTransform.transform.eulerAngles.x;
+            _presentCamRotation.y = _camTransform.transform.eulerAngles.y;
+        }
+
+        if(Input.GetMouseButton(0))
+        {
+            //(移動開始座標　-　マウスの現在地) /　解像度で初期化
+            float x = (_startMousePos.x - Input.mousePosition.x) / Screen.width;
+            float y = (_startMousePos.y - Input.mousePosition.y) / Screen.height;
+        }
+    }
+
 }
+*/
